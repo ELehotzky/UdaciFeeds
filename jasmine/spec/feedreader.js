@@ -110,7 +110,23 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        let firstFeed;
+        let secondFeed;
 
+        beforeEach(done => {
+            loadFeed(0, function() {
+                firstFeed = $(".feed").html();
+                done();
+            });
+            loadFeed(1, function() {
+                secondFeed = $(".feed").html();
+                done();
+            });
+        });
+
+        it ("changes when a new feed is loaded", function() {
+            expect(firstFeed !== secondFeed).toBe(true);
+        })
     });
 
 }());
